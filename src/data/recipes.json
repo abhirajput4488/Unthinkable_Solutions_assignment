@@ -1,0 +1,339 @@
+[
+  {
+    "id": 1,
+    "name": "Classic Tomato Basil Pasta",
+    "cuisine": "Italian",
+    "ingredients": ["pasta", "canned tomato", "garlic", "basil", "olive oil", "onion", "parmesan cheese"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 25,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 450, "protein": 18, "fat": 15},
+    "instructions": [
+      "Boil water and cook pasta according to package directions.", 
+      "Sauté chopped garlic and onion in olive oil.", 
+      "Add canned tomatoes and fresh basil. Simmer for 15 minutes.", 
+      "Toss the cooked pasta in the sauce and top with Parmesan cheese."
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Quick Chicken Stir Fry",
+    "cuisine": "Asian",
+    "ingredients": ["chicken breast", "broccoli", "carrot", "soy sauce", "ginger", "rice", "sesame oil"],
+    "is_vegetarian": false,
+    "is_gluten_free": true,
+    "cooking_time": 20,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 420, "protein": 35, "fat": 10},
+    "instructions": [
+      "Slice chicken and vegetables into strips.", 
+      "Stir fry chicken in sesame oil until cooked.", 
+      "Add vegetables, ginger, and soy sauce. Cook for 5 minutes.", 
+      "Serve hot over a bed of white rice."
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Simple Lentil Soup",
+    "cuisine": "Mediterranean",
+    "ingredients": ["lentils", "vegetable broth", "carrot", "celery", "onion", "garlic", "cumin", "lemon"],
+    "is_vegetarian": true,
+    "is_gluten_free": true,
+    "cooking_time": 45,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 300, "protein": 15, "fat": 5},
+    "instructions": [
+      "Chop vegetables (carrot, celery, onion).", 
+      "Sauté them with garlic and cumin in a pot.", 
+      "Add lentils and broth, bring to boil.",
+      "Simmer for 30 minutes until lentils are tender. Serve with a squeeze of lemon."
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Beef Tacos with Salsa",
+    "cuisine": "Mexican",
+    "ingredients": ["ground beef", "taco seasoning", "tortillas", "onion", "tomato", "lettuce", "cheese"],
+    "is_vegetarian": false,
+    "is_gluten_free": false,
+    "cooking_time": 30,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 550, "protein": 30, "fat": 25},
+    "instructions": [
+      "Brown the ground beef and drain fat.", 
+      "Add taco seasoning and a little water; simmer.", 
+      "Warm tortillas.", 
+      "Serve beef in tortillas with chopped tomato, onion, lettuce, and cheese."
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Avocado Toast with Egg",
+    "cuisine": "American",
+    "ingredients": ["bread", "avocado", "egg", "salt", "pepper", "red pepper flakes"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 10,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 350, "protein": 15, "fat": 20},
+    "instructions": [
+      "Toast the bread.", 
+      "Mash avocado with salt and pepper.", 
+      "Fry the egg sunny-side up.", 
+      "Spread avocado on toast, top with egg and red pepper flakes."
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Salmon with Roasted Asparagus",
+    "cuisine": "Healthy",
+    "ingredients": ["salmon fillet", "asparagus", "lemon", "olive oil", "garlic", "salt", "pepper"],
+    "is_vegetarian": false,
+    "is_gluten_free": true,
+    "cooking_time": 20,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 480, "protein": 40, "fat": 30},
+    "instructions": [
+      "Preheat oven to 400°F (200°C).", 
+      "Toss asparagus with olive oil, garlic, salt, and pepper.", 
+      "Season salmon with lemon juice, salt, and pepper.", 
+      "Roast salmon and asparagus for 12-15 minutes."
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Mushroom and Spinach Omelette",
+    "cuisine": "Breakfast",
+    "ingredients": ["eggs", "mushroom", "spinach", "milk", "cheese", "butter"],
+    "is_vegetarian": true,
+    "is_gluten_free": true,
+    "cooking_time": 15,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 320, "protein": 20, "fat": 22},
+    "instructions": [
+      "Whisk eggs and milk.", 
+      "Sauté mushrooms and spinach in butter.", 
+      "Pour egg mixture over vegetables, sprinkle with cheese.", 
+      "Cook until set, fold and serve."
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Chicken Curry with Coconut Milk",
+    "cuisine": "Indian",
+    "ingredients": ["chicken", "coconut milk", "curry powder", "onion", "garlic", "ginger", "rice"],
+    "is_vegetarian": false,
+    "is_gluten_free": true,
+    "cooking_time": 40,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 500, "protein": 38, "fat": 20},
+    "instructions": [
+      "Sauté onion, garlic, and ginger.", 
+      "Add chicken and cook until browned.", 
+      "Stir in curry powder and coconut milk; simmer for 25 minutes.", 
+      "Serve hot with rice."
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Homemade Pizza Margherita",
+    "cuisine": "Italian",
+    "ingredients": ["pizza dough", "tomato sauce", "mozzarella", "basil", "olive oil"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 35,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 600, "protein": 25, "fat": 20},
+    "instructions": [
+      "Preheat oven. Roll out pizza dough.", 
+      "Spread tomato sauce and top with sliced mozzarella.", 
+      "Bake for 15-20 minutes.", 
+      "Garnish with fresh basil and a drizzle of olive oil."
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Black Bean Burgers",
+    "cuisine": "Vegetarian",
+    "ingredients": ["black beans", "bread crumbs", "onion", "garlic", "chili powder", "buns", "ketchup"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 30,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 400, "protein": 15, "fat": 10},
+    "instructions": [
+      "Mash black beans.", 
+      "Mix with bread crumbs, onion, garlic, and chili powder.", 
+      "Form into patties and bake or fry until heated through.", 
+      "Serve on buns with toppings."
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Creamy Tomato Soup",
+    "cuisine": "American",
+    "ingredients": ["canned tomato", "cream", "vegetable broth", "onion", "butter", "basil"],
+    "is_vegetarian": true,
+    "is_gluten_free": true,
+    "cooking_time": 20,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 280, "protein": 8, "fat": 18},
+    "instructions": [
+      "Sauté onion in butter.", 
+      "Add canned tomatoes and vegetable broth.", 
+      "Simmer for 10 minutes.", 
+      "Stir in cream and fresh basil before serving."
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Pork Chops with Apple Sauce",
+    "cuisine": "European",
+    "ingredients": ["pork chops", "apple", "butter", "cinnamon", "sugar", "salt", "pepper"],
+    "is_vegetarian": false,
+    "is_gluten_free": true,
+    "cooking_time": 25,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 520, "protein": 35, "fat": 25},
+    "instructions": [
+      "Season pork chops with salt and pepper.", 
+      "Sear pork chops in butter.", 
+      "Dice apples and simmer with cinnamon and sugar to make sauce.", 
+      "Serve chops with apple sauce."
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Hummus and Veggie Wrap",
+    "cuisine": "Middle Eastern",
+    "ingredients": ["tortillas", "hummus", "cucumber", "carrot", "bell pepper", "spinach"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 10,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 380, "protein": 12, "fat": 15},
+    "instructions": [
+      "Spread hummus evenly onto tortillas.", 
+      "Layer with spinach, sliced cucumber, carrot, and bell pepper.", 
+      "Roll up tightly and slice in half."
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Baked Potato with Chili",
+    "cuisine": "American",
+    "ingredients": ["potato", "chili", "cheese", "sour cream", "butter"],
+    "is_vegetarian": false,
+    "is_gluten_free": true,
+    "cooking_time": 60,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 650, "protein": 30, "fat": 30},
+    "instructions": [
+      "Bake the potato until soft (about 60 min).", 
+      "Heat the chili.", 
+      "Split the potato, add butter and chili.", 
+      "Top with cheese and a dollop of sour cream."
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Garlic Shrimp Scampi",
+    "cuisine": "Italian",
+    "ingredients": ["shrimp", "pasta", "butter", "garlic", "white wine", "lemon", "parsley"],
+    "is_vegetarian": false,
+    "is_gluten_free": false,
+    "cooking_time": 25,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 550, "protein": 30, "fat": 20},
+    "instructions": [
+      "Cook pasta.", 
+      "Sauté garlic in butter, add shrimp and cook until pink.", 
+      "Deglaze with white wine and lemon juice.", 
+      "Toss shrimp and sauce with pasta and parsley."
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Tofu Scramble with Turmeric",
+    "cuisine": "Vegan",
+    "ingredients": ["tofu", "turmeric", "onion", "bell pepper", "spinach", "nutritional yeast"],
+    "is_vegetarian": true,
+    "is_gluten_free": true,
+    "cooking_time": 20,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 350, "protein": 25, "fat": 15},
+    "instructions": [
+      "Crumble tofu.", 
+      "Sauté onion and bell pepper.", 
+      "Add tofu, turmeric, and nutritional yeast; cook until heated.", 
+      "Stir in spinach and serve."
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Chicken Noodle Soup",
+    "cuisine": "Classic",
+    "ingredients": ["chicken broth", "chicken", "egg noodle", "carrot", "celery", "onion"],
+    "is_vegetarian": false,
+    "is_gluten_free": false,
+    "cooking_time": 35,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 300, "protein": 25, "fat": 10},
+    "instructions": [
+      "Combine broth, chopped chicken, carrot, celery, and onion in a pot.", 
+      "Bring to a boil, then simmer until vegetables are tender.", 
+      "Add egg noodles and cook until done."
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Pancake Stack with Berries",
+    "cuisine": "Dessert",
+    "ingredients": ["flour", "milk", "egg", "sugar", "baking powder", "butter", "berries"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 15,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 400, "protein": 12, "fat": 15},
+    "instructions": [
+      "Mix flour, milk, egg, sugar, and baking powder.", 
+      "Pour batter onto a buttered griddle.", 
+      "Cook until bubbles form, flip, and cook other side.", 
+      "Stack pancakes and top with berries."
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Cobb Salad",
+    "cuisine": "American",
+    "ingredients": ["lettuce", "chicken", "egg", "bacon", "avocado", "tomato", "blue cheese"],
+    "is_vegetarian": false,
+    "is_gluten_free": true,
+    "cooking_time": 20,
+    "difficulty": "Easy",
+    "nutritional_info": {"calories": 580, "protein": 40, "fat": 40},
+    "instructions": [
+      "Chop lettuce and arrange on a platter.", 
+      "Arrange diced chicken, boiled egg, crumbled bacon, avocado, tomato, and blue cheese on top.", 
+      "Serve with vinaigrette dressing."
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Spicy Peanut Noodles",
+    "cuisine": "Asian",
+    "ingredients": ["egg noodle", "peanut butter", "soy sauce", "ginger", "garlic", "chili oil", "scallion"],
+    "is_vegetarian": true,
+    "is_gluten_free": false,
+    "cooking_time": 15,
+    "difficulty": "Medium",
+    "nutritional_info": {"calories": 480, "protein": 15, "fat": 25},
+    "instructions": [
+      "Cook egg noodles.", 
+      "Whisk together peanut butter, soy sauce, ginger, garlic, and chili oil.", 
+      "Toss noodles with the peanut sauce.", 
+      "Garnish with chopped scallions."
+    ]
+  }
+]
