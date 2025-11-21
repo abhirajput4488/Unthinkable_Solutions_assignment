@@ -1,106 +1,87 @@
-// src/components/RecipeCard.jsx
-
-// VscStar को हटा दिया गया है, क्योंकि वह Vsc family में मौजूद नहीं है
 import React, { useState } from "react";
-// VscClock को VscHistory से बदला गया है (जैसा कि पहले fix किया गया था)
-import { VscStarFull, VscRocket, VscHistory, VscClose, VscSave } from "react-icons/vsc"; 
+import { VscStarFull, VscStarEmpty, VscStarHalf, VscHistory, VscSave } from "react-icons/vsc";
 
 const RecipeCard = ({ recipe, isSaved, toggleSave }) => {
-  const [showInstructions, setShowInstructions] = useState(false);
-  const { name, ingredients, cooking_time, difficulty, score, is_vegetarian, is_gluten_free } = recipe;
+  const [open, setOpen] = useState(false);
+  const {
+    id, name, image, ingredients, cooking_time, difficulty,
+    score, is_vegetarian, is_gluten_free, instructions, nutritional_info
+  } = recipe;
 
-  const difficultyColor = {
-    Easy: 'bg-green-100 text-green-800',
-    Medium: 'bg-yellow-100 text-yellow-800',
-    Hard: 'bg-red-100 text-red-800',
+  const colorFor = pct => {
+    if (pct >= 90) return "bg-green-600";
+    if (pct >= 70) return "bg-yellow-400";
+    return "bg-red-500";
   };
 
-  const getMatchColor = (percent) => {
-    if (percent === 100) return 'text-green-600';
-    if (percent >= 70) return 'text-yellow-600';
-    return 'text-red-600';
+  const stars = (percent) => {
+    const arr = []; const rating = percent / 20;
+    for (let i=1;i<=5;i++) {
+      if (rating >= i) arr.push(<VscStarFull key={i} className="text-yellow-500" />);
+      else if (rating >= i-0.5) arr.push(<VscStarHalf key={i} className="text-yellow-500" />);
+      else arr.push(<VscStarEmpty key={i} className="text-gray-300" />);
+    }
+    return arr;
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
-      
-      <div className="p-5">
-        <div className="flex justify-between items-start mb-3">
-          <h4 className="text-xl font-bold text-gray-800 leading-snug">{name}</h4>
-          
-          <button 
-            onClick={() => toggleSave(recipe.id)}
-            className="p-1.5 rounded-full transition-colors duration-200"
-            title={isSaved ? "Unsave" : "Save Recipe"}
-          >
-            <VscSave className={`text-2xl ${isSaved ? 'text-red-500 fill-red-500' : 'text-gray-400'}`} />
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
+      {/* image */}
+      <div className="relative h-40 md:h-48 w-full">
+        <img src={image || "/assets/placeholder.png"} alt={name} className="object-cover w-full h-full" />
+        <div className="absolute top-3 left-3 bg-black/50 text-white px-2 py-1 rounded">{difficulty}</div>
+      </div>
+
+      <div className="p-4">
+        <div className="flex justify-between items-start">
+          <h3 className="text-lg font-bold">{name}</h3>
+          <button onClick={() => toggleSave(id)} title={isSaved ? "Unsave" : "Save"}>
+            <VscSave className={`text-2xl ${isSaved ? "text-red-500" : "text-gray-400"}`} />
           </button>
         </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${difficultyColor[difficulty]}`}>
-            {difficulty}
-          </span>
-          {is_vegetarian && (
-            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-green-500 text-white">
-              Veg
-            </span>
+        <div className="flex gap-2 mt-2 items-center">
+          <div className="flex items-center gap-1">{stars(score.matchPercentage)}</div>
+          <div className="ml-auto text-sm text-gray-600">{score.matchPercentage}%</div>
+        </div>
+
+        <div className="mt-3 text-sm text-gray-600">
+          {score.missing.length > 0 && <div className="text-red-500">Missing: {score.missing.join(", ")}</div>}
+        </div>
+
+        <div className="mt-3 flex gap-2 items-center">
+          <div className="text-sm px-2 py-1 rounded bg-green-50 text-green-700">{is_vegetarian ? "Veg" : "Non-Veg"}</div>
+          {is_gluten_free && <div className="text-sm px-2 py-1 rounded bg-indigo-50 text-indigo-700">Gluten-Free</div>}
+          <div className="text-sm px-2 py-1 rounded bg-blue-50 text-blue-700 flex items-center"><VscHistory className="mr-1" /> {cooking_time}m</div>
+        </div>
+
+        <div className="mt-4 flex gap-2">
+          <button onClick={() => setOpen(!open)} className="px-3 py-2 bg-violet-600 text-white rounded">Instructions</button>
+        </div>
+
+        {/* expandable */}
+        <div className={`transition-all duration-300 overflow-hidden ${open ? "max-h-96 mt-4" : "max-h-0"}`}>
+          {open && (
+            <div>
+              <ol className="list-decimal list-inside text-sm text-gray-700">
+                {instructions.map((s,i) => <li key={i}>{s}</li>)}
+              </ol>
+
+              {/* nutrition bars */}
+              <div className="mt-4">
+                <div className="text-sm flex justify-between"><span>Calories</span><span>{nutritional_info.calories}</span></div>
+                <div className="h-2 bg-red-200 rounded-full mt-1"><div className={`h-full ${colorFor(nutritional_info.calories)}`} style={{width: `${Math.min(nutritional_info.calories / 5, 100)}%`}}></div></div>
+
+                <div className="text-sm flex justify-between mt-3"><span>Protein</span><span>{nutritional_info.protein} g</span></div>
+                <div className="h-2 bg-green-200 rounded-full mt-1"><div className="h-full bg-green-600" style={{width: `${Math.min(nutritional_info.protein * 5, 100)}%`}}></div></div>
+
+                <div className="text-sm flex justify-between mt-3"><span>Carbs</span><span>{nutritional_info.carbs} g</span></div>
+                <div className="h-2 bg-yellow-200 rounded-full mt-1"><div className="h-full bg-yellow-500" style={{width: `${Math.min(nutritional_info.carbs * 5, 100)}%`}}></div></div>
+              </div>
+            </div>
           )}
-          {is_gluten_free && (
-            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-indigo-500 text-white">
-              Gluten-Free
-            </span>
-          )}
-          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-800 flex items-center">
-            {/* VscHistory is used instead of VscClock */}
-            <VscHistory className="mr-1" /> {cooking_time} min
-          </span>
         </div>
-
-        {/* Match Score */}
-        <div className="flex items-center justify-between border-t pt-3 mt-3">
-          <div className="flex items-center">
-            {/* VscStarFull is used for the main score icon */}
-            <VscStarFull className={`text-2xl mr-2 ${getMatchColor(score.matchPercentage)}`} />
-            <span className={`text-lg font-bold ${getMatchColor(score.matchPercentage)}`}>
-              {score.matchPercentage}% Match
-            </span>
-          </div>
-          <span className="text-sm text-gray-500">
-            ({score.matches} / {ingredients.length} ingredients)
-          </span>
-        </div>
-
-        {/* Missing Ingredients */}
-        {score.missing && score.missing.length > 0 && (
-          <p className="mt-3 text-sm text-red-500 border-t pt-3">
-            Missing: {score.missing.join(', ')}
-          </p>
-        )}
       </div>
-
-      {/* Instructions Toggle */}
-      <div 
-        className="bg-gray-50 border-t cursor-pointer hover:bg-gray-100 transition-colors duration-150 p-4 text-center font-semibold text-gray-700"
-        onClick={() => setShowInstructions(!showInstructions)}
-      >
-        {showInstructions ? 'Hide Instructions' : 'View Instructions'}
-      </div>
-      
-      {showInstructions && (
-        <div className="p-5 border-t bg-gray-50">
-          <h5 className="font-semibold mb-2">Instructions:</h5>
-          <ol className="list-decimal list-inside text-sm text-gray-600 space-y-1">
-            {recipe.instructions.map((step, index) => (
-              <li key={index}>{step}</li>
-            ))}
-          </ol>
-          <div className="mt-4 text-sm text-gray-500">
-            <p>Calories: {recipe.nutritional_info.calories} | Protein: {recipe.nutritional_info.protein}g</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -1,87 +1,56 @@
-// src/components/Filters.jsx
 import React from "react";
-import { VscSettings } from "react-icons/vsc";
 
 const Filters = ({ currentFilters, setFilters }) => {
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    // Convert string inputs to numbers where required
-    let newValue = value;
-    if (name === 'maxTime') {
-        newValue = parseInt(value, 10);
-    }
-    
-    setFilters(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : newValue,
-    }));
-  };
+  const update = (patch) => setFilters(prev => ({ ...prev, ...patch }));
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md mb-6">
-      <h3 className="text-xl font-semibold text-gray-700 mb-3 flex items-center">
-        <VscSettings className="mr-2" />
-        Recipe Filters
-      </h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        
-        {/* Difficulty Filter */}
+    <div className="bg-white/60 backdrop-blur-md p-4 rounded-xl shadow-md border border-gray-100">
+      <h3 className="text-lg font-semibold text-gray-800 mb-3">Recipe Filters</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
         <div>
-          <label className="block text-sm font-medium text-gray-600">Difficulty</label>
-          <select 
-            name="difficulty" 
-            value={currentFilters.difficulty || 'All'} 
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2"
+          <label className="text-sm text-gray-600 block mb-1">Difficulty</label>
+          <select
+            className="w-full p-2 border rounded-md"
+            value={currentFilters.difficulty}
+            onChange={(e) => update({ difficulty: e.target.value })}
           >
-            <option value="All">Any</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
+            <option>All</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
           </select>
         </div>
 
-        {/* Max Cooking Time Filter */}
         <div>
-          <label className="block text-sm font-medium text-gray-600">Max Time (min)</label>
-          <input 
-            type="number" 
-            name="maxTime" 
-            value={currentFilters.maxTime || 60} 
-            onChange={handleChange}
-            min="5"
-            max="180"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-2"
+          <label className="text-sm text-gray-600 block mb-1">Max Time (min)</label>
+          <input
+            type="number"
+            min="1"
+            className="w-full p-2 border rounded-md"
+            value={currentFilters.maxTime}
+            onChange={(e) => update({ maxTime: Number(e.target.value) })}
           />
         </div>
 
-        {/* Vegetarian Checkbox */}
-        <div className="flex items-center pt-5">
-          <input 
-            type="checkbox" 
-            name="isVegetarian" 
-            checked={currentFilters.isVegetarian || false} 
-            onChange={handleChange}
-            id="vegetarian"
-            className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-          />
-          <label htmlFor="vegetarian" className="ml-2 text-sm font-medium text-gray-700">Vegetarian</label>
-        </div>
-        
-        {/* Gluten-Free Checkbox */}
-        <div className="flex items-center pt-5">
-          <input 
-            type="checkbox" 
-            name="isGlutenFree" 
-            checked={currentFilters.isGlutenFree || false} 
-            onChange={handleChange}
-            id="glutenFree"
-            className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-          />
-          <label htmlFor="glutenFree" className="ml-2 text-sm font-medium text-gray-700">Gluten-Free</label>
-        </div>
+        <div className="flex gap-4 items-center">
+          <label className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              checked={currentFilters.isVegetarian}
+              onChange={(e) => update({ isVegetarian: e.target.checked })}
+            />
+            <span className="text-sm text-gray-700">Vegetarian</span>
+          </label>
 
+          <label className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              checked={currentFilters.isGlutenFree}
+              onChange={(e) => update({ isGlutenFree: e.target.checked })}
+            />
+            <span className="text-sm text-gray-700">Gluten-Free</span>
+          </label>
+        </div>
       </div>
     </div>
   );

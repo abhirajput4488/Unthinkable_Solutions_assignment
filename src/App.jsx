@@ -1,83 +1,57 @@
-// src/App.jsx
+import React, { useState, useMemo } from "react";
+import Filters from "./components/Filters";
+import IngredientInput from "./components/IngredientInput";
+import RecipeCard from "./components/RecipeCard";
+import LoadingSpinner from "./components/LoadingSpinner";
 
-import React, { useState, useMemo } from 'react';
-
-// 1. UI Components Imports
-import Filters from './components/Filters'; 
-import IngredientInput from './components/IngredientInput'; 
-import RecipeCard from './components/RecipeCard'; 
-import LoadingSpinner from './components/LoadingSpinner'; 
-
-// 2. Logic Imports
-import { getMatchingRecipes } from './logic/recipeMatcher';
-
-// 3. Icons 
-import { VscRocket, VscError, VscSave } from 'react-icons/vsc'; 
-
+import { getMatchingRecipes } from "./logic/recipeMatcher";
+import { VscError, VscSave } from "react-icons/vsc";
 
 const App = () => {
-  // State 1: Available Ingredients (from text or image)
   const [availableIngredients, setAvailableIngredients] = useState([]);
-  
-  // State 2: Filters 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [filters, setFilters] = useState({
-    difficulty: 'All',
+    difficulty: "All",
     maxTime: 60,
     isVegetarian: false,
     isGlutenFree: false,
   });
 
-  // State 3: Loading status for AI Service
-  const [isLoading, setIsLoading] = useState(false);
-
-  // State 4: Saved Recipes
-  const [savedRecipes, setSavedRecipes] = useState(
-    JSON.parse(localStorage.getItem('savedRecipes')) || []
-  );
-  
-  // State 5: Error message handling
   const [error, setError] = useState(null);
 
-  // Function to handle saving/unsaving a recipe
-  const toggleSave = (recipeId) => {
-    const isSaved = savedRecipes.includes(recipeId);
-    let newSavedRecipes;
+  const [savedRecipes, setSavedRecipes] = useState(
+    JSON.parse(localStorage.getItem("savedRecipes")) || []
+  );
 
-    if (isSaved) {
-      newSavedRecipes = savedRecipes.filter(id => id !== recipeId);
+  const toggleSave = (id) => {
+    let updated = [];
+
+    if (savedRecipes.includes(id)) {
+      updated = savedRecipes.filter((x) => x !== id);
     } else {
-      newSavedRecipes = [...savedRecipes, recipeId];
+      updated = [...savedRecipes, id];
     }
-    
-    setSavedRecipes(newSavedRecipes);
-    localStorage.setItem('savedRecipes', JSON.stringify(newSavedRecipes));
+
+    setSavedRecipes(updated);
+    localStorage.setItem("savedRecipes", JSON.stringify(updated));
   };
 
-
-  // Core Logic: Match recipes using useMemo for performance
   const matchedRecipes = useMemo(() => {
     if (availableIngredients.length === 0) return [];
-    
     return getMatchingRecipes(availableIngredients, filters);
   }, [availableIngredients, filters]);
 
-
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8 font-sans">
-      
-      {/* Header */}
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-green-700 flex items-center justify-center">
-          <VscRocket className="mr-3 text-5xl text-red-500" />
+        <h1 className="text-3xl font-bold text-green-700">
           Smart Recipe Generator
         </h1>
-        <p className="text-gray-500 mt-2">Find the perfect meal from what you have!</p>
+        <p className="text-gray-500">Turn your ingredients into meals</p>
       </header>
-      
-      {/* Main Content Area */}
+
       <main className="max-w-6xl mx-auto">
-        
-        {/* Ingredient Input (Text/Image) */}
         <IngredientInput
           setIngredients={setAvailableIngredients}
           currentIngredients={availableIngredients}
@@ -85,69 +59,49 @@ const App = () => {
           setError={setError}
         />
 
-        {/* Filters */}
-        <Filters 
-          currentFilters={filters} 
-          setFilters={setFilters} 
-          className="my-6"
-        />
-        
-        {/* Error Display */}
+        <Filters currentFilters={filters} setFilters={setFilters} />
+
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative my-4 flex items-center">
+          <div className="bg-red-100 border border-red-400 text-red-700 p-3 rounded mt-4 flex items-center">
             <VscError className="mr-2" />
-            <span className="block sm:inline">{error}</span>
+            {error}
           </div>
         )}
 
-        {/* Loading State */}
         {isLoading && (
-          <div className="text-center my-12">
+          <div className="text-center my-8">
             <LoadingSpinner />
-            <p className="text-lg text-gray-600 mt-3">Analyzing image and matching recipes...</p>
+            <p className="text-gray-600">Analyzing image...</p>
           </div>
         )}
 
-        {/* Recipe Results */}
-        <h2 className="text-2xl font-semibold text-gray-700 mt-8 mb-4">
-          {availableIngredients.length > 0 ? `Matched Recipes (${matchedRecipes.length})` : 'Enter Ingredients to Start'}
+        <h2 className="text-xl font-semibold mt-6">
+          {availableIngredients.length === 0
+            ? "Start by adding ingredients"
+            : `Recipes Found (${matchedRecipes.length})`}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* Render Matched Recipes */}
-          {!isLoading && matchedRecipes.length > 0 && matchedRecipes.map((recipe) => (
-            <RecipeCard 
-              key={recipe.id} 
-              recipe={recipe} 
-              isSaved={savedRecipes.includes(recipe.id)}
-              toggleSave={toggleSave}
-            />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {!isLoading &&
+            matchedRecipes.map((r) => (
+              <RecipeCard
+                key={r.id}
+                recipe={r}
+                isSaved={savedRecipes.includes(r.id)}
+                toggleSave={toggleSave}
+              />
+            ))}
 
-          {/* No Results Message */}
-          {!isLoading && availableIngredients.length > 0 && matchedRecipes.length === 0 && (
-            <p className="col-span-full text-center text-xl text-gray-500 p-10 border rounded-lg bg-white shadow-sm">
-              <VscError className="inline text-4xl mr-2 text-red-500" />
-              Sorry, we couldn't find any recipes matching your ingredients and filters.
-            </p>
-          )}
-
-          {/* Saved Recipes (Simplified view) */}
-          {!isLoading && availableIngredients.length === 0 && savedRecipes.length > 0 && (
-            <>
-              <h3 className="col-span-full text-xl font-semibold text-gray-700 mt-4 mb-2 flex items-center">
-                <VscSave className="mr-2" /> Your Saved Recipes ({savedRecipes.length})
-              </h3>
-              {/* This message implies that the user has saved recipes, but the detailed list won't render here. */}
-              <p className="col-span-full text-center text-md text-gray-500">
-                  Enter new ingredients to find matches or refine your saved list.
+          {!isLoading &&
+            availableIngredients.length > 0 &&
+            matchedRecipes.length === 0 && (
+              <p className="col-span-full text-gray-500 text-center p-10 bg-white rounded">
+                <VscError className="inline-block text-red-500 text-3xl mr-2" />
+                No matching recipes found.
               </p>
-            </>
-          )}
+            )}
         </div>
       </main>
-      
     </div>
   );
 };
