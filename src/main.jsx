@@ -1,13 +1,14 @@
-// src/main.jsx (Restored to load App.jsx)
+// src/main.jsx or src/main.tsx
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx'; // ✅ App import wapas
-import './index.css';
+import App from './App.jsx';
+// 👇 Ensure this line exists and the path is correct
+import './index.css'; 
+// If your main CSS file is in a different location, adjust the path (e.g., './styles/index.css')
 
-// Ensure the ID 'root' matches the ID in your index.html
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App /> {/* ✅ App component wapas render ho raha hai */}
+    <App />
   </React.StrictMode>,
 );

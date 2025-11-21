@@ -1,24 +1,25 @@
-// src/logic/recipeMatcher.js
-import recipeData from '../data/recipes.json';
+import recipeData from "../data/recipes.json";
 
-const normalize = (items) => new Set(items.map(i => i.toLowerCase().trim()));
+const normalize = (list) =>
+  new Set(list.map((i) => i.toLowerCase().trim()));
 
-const calculateMatchScore = (recipeIngredients, availableSet) => {
+const calculateScore = (recipeIngredients, availableSet) => {
   let matches = 0;
-  for (const requiredIng of recipeIngredients) {
-    if (availableSet.has(requiredIng.toLowerCase().trim())) {
+
+  recipeIngredients.forEach((ing) => {
+    if (availableSet.has(ing.toLowerCase().trim())) {
       matches++;
     }
-  }
-  
-  const totalRequired = recipeIngredients.length;
-  const matchPercentage = (matches / totalRequired) * 100;
-  
-  return { 
-    matches, 
-    matchPercentage: parseFloat(matchPercentage.toFixed(1)), 
-    // For Substitution Suggestions
-    missing: recipeIngredients.filter(ing => !availableSet.has(ing.toLowerCase().trim())) 
+  });
+
+  const matchPercentage = (matches / recipeIngredients.length) * 100;
+
+  return {
+    matches,
+    matchPercentage: Number(matchPercentage.toFixed(1)),
+    missing: recipeIngredients.filter(
+      (ing) => !availableSet.has(ing.toLowerCase().trim())
+    ),
   };
 };
 
@@ -27,30 +28,22 @@ export const getMatchingRecipes = (availableIngredients, filters) => {
 
   const availableSet = normalize(availableIngredients);
 
-  // 1. Filter by Dietary Restrictions and other constraints
-  let filteredRecipes = recipeData.filter(recipe => {
-    // Dietary restrictions handling (Must match exactly if filter is on)
+  let filtered = recipeData.filter((recipe) => {
     if (filters.isVegetarian && !recipe.is_vegetarian) return false;
     if (filters.isGlutenFree && !recipe.is_gluten_free) return false;
+    if (recipe.cooking_time > filters.maxTime) return false;
+    if (filters.difficulty !== "All" && recipe.difficulty !== filters.difficulty)
+      return false;
 
-    // Time and Difficulty filters
-    if (filters.maxTime && recipe.cooking_time > filters.maxTime) return false;
-    if (filters.difficulty && recipe.difficulty !== filters.difficulty) return false;
-    
     return true;
   });
 
-  // 2. Score recipes and combine data
-  const scoredRecipes = filteredRecipes.map(recipe => {
-    const score = calculateMatchScore(recipe.ingredients, availableSet);
-    return { ...recipe, score };
-  });
+  const scored = filtered.map((recipe) => ({
+    ...recipe,
+    score: calculateScore(recipe.ingredients, availableSet),
+  }));
 
-  // 3. Filter out recipes with 0 matches and sort
-  const matchedRecipes = scoredRecipes.filter(recipe => recipe.score.matches > 0);
-
-  // 4. Recipe Matching Logic: Sort by highest percentage match first
-  matchedRecipes.sort((a, b) => b.score.matchPercentage - a.score.matchPercentage);
-  
-  return matchedRecipes;
+  return scored
+    .filter((r) => r.score.matches > 0)
+    .sort((a, b) => b.score.matchPercentage - a.score.matchPercentage);
 };

@@ -1,6 +1,25 @@
-/* src/index.css */
+/* This file defines the foundation for Tailwind CSS. 
+In a standard React project, this file is imported once 
+in your main entry file (e.g., src/main.jsx) to enable 
+all the utility classes used throughout the application.
+*/
+
+/* 1. Base styles (resets, typography) */
 @tailwind base;
+
+/* 2. Component styles (for pre-defined utility compositions, if any) */
 @tailwind components;
+
+/* 3. Utility styles (the bulk of Tailwind classes, e.g., bg-red-500, flex) */
 @tailwind utilities;
 
-/* Baaki koi bhi CSS code in teen lines ke neeche hona chahiye */
+
+/* Custom Global Styles (Minimal, for ensuring a clean base and desired font)
+*/
+
+/* Apply Inter font and smooth transitions globally */
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
