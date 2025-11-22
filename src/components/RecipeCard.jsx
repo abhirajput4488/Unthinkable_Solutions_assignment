@@ -27,8 +27,8 @@ const RecipeCard = ({ recipe, isSaved, toggleSave }) => {
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
       {/* image */}
-      <div className="relative h-40 md:h-48 w-full">
-        <img src={image || "/assets/placeholder.png"} alt={name} className="object-cover w-full h-full" />
+      <div className="relative h-40 md:h-10 w-full">
+        {/* <img src={image || "/assets/placeholder.png"} alt={name} className="object-cover w-full h-full" /> */}
         <div className="absolute top-3 left-3 bg-black/50 text-white px-2 py-1 rounded">{difficulty}</div>
       </div>
 
